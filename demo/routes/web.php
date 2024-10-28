@@ -9,3 +9,5 @@ use App\Http\Controllers\QuoteController;
 
 Route::get('/', [QuoteController::class, 'index']);
 Route::post('/search', [QuoteController::class, 'search']);
+Route::post('/addQuote', [QuoteController::class, 'store']);
+Route::put('/updateQuote/{id}', [QuoteController::class, 'update']);

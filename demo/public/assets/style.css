@@ -1,0 +1,103 @@
+:root {
+    --cafe-brown: #4B3D3D;
+    /* Dark brown */
+    --cafe-beige: #E8D5C4;
+    /* Light beige */
+    --cafe-cream: #F3E6D5;
+    /* Off-white */
+    --cafe-green: #4A7C2A;
+    /* Green */
+    --cafe-dark-green: #3A5A1D;
+    /* Dark green for buttons */
+    --cafe-highlight: #FFD700;
+    /* Gold for highlights */
+}
+
+body {
+    background-color: var(--cafe-cream);
+    font-family: 'Poppins', sans-serif;
+}
+
+.card {
+    background-color: var(--cafe-beige);
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+    background-color: var(--cafe-brown);
+    color: var(--cafe-highlight);
+    /* Gold color for contrast */
+}
+
+.btn-primary {
+    background-color: var(--cafe-dark-green);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--cafe-green);
+    transform: scale(1.05);
+    /* Slight scaling effect on hover */
+}
+
+#resultsContainer {
+    max-height: 400px;
+    /* Increased height */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    padding: 20px;
+    /* Add padding for better spacing */
+    text-align: left;
+    /* Align text to the left */
+}
+
+.no-results {
+    font-size: 1.2rem;
+    /* Slightly larger font size */
+    color: #333;
+    /* Darker text color for better visibility */
+    margin-top: 20px;
+    /* Margin for spacing */
+}
+
+/* Styling for search input and button */
+.input-group input {
+    border: 2px solid var(--cafe-brown);
+    /* Dark border for contrast */
+}
+
+.input-group input:focus {
+    border-color: var(--cafe-green);
+    /* Green border on focus */
+    box-shadow: 0 0 5px var(--cafe-green);
+
+    /* Shadow effect */
+    body {
+        background-color: #f8f4e3;
+        /* Light cream background */
+    }
+
+    .quote-item {
+        font-size: 0.5rem;
+        /* Smaller font size */
+        color: #5b3e36;
+        /* Dark coffee color for text */
+    }
+
+    .blockquote {
+        border-left: 5px solid #d4a42c;
+        /* Gold left border */
+        padding-left: 1rem;
+        /* Padding for blockquote */
+        margin-bottom: 0;
+        /* Remove bottom margin */
+    }
+
+    .alert {
+        background-color: #ffe0b2;
+        /* Light orange alert background */
+        color: #5b3e36;
+        /* Dark coffee color for alert text */
+    }
+}
