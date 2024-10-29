@@ -41,19 +41,54 @@ $(document).ready(function () {
     });
 
     // Open Edit Modal
-    $(".editQuoteButton").click(function () {
+    // Use event delegation to attach the click event to dynamically loaded elements
+    $(document).on("click", ".editQuoteButton", function () {
         const quoteId = $(this).data("id");
         const quote = $(this).data("quote");
         const author = $(this).data("author");
-        console.log(quoteId, quote, author);
 
         $("#quoteModalLabel").text("Edit Quote");
         $("#saveQuoteButton").text("Save Changes");
         $("#quoteId").val(quoteId);
         $("#quote").val(quote);
         $("#author").val(author);
-        $("#quoteForm")[0].reset();
     });
+
+    function DialogModal(eventText) {
+        Dialog.showPlainDialog(
+            `<div class="dialog-content" style="padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); position: relative;">
+                <p class='text-center fs-3 mb-4'>
+                    <strong>${eventText}</strong>
+                </p>
+            </div>`,
+            {
+                backdrop: {
+                    "background-color": "#F3E6D5",
+                    "backdrop-filter": "blur(10px)",
+                },
+                dialog: {
+                    "background-color": "#fff",
+                    border: "2px solid #4CAF50", // Green border
+                    "border-radius": "10px",
+                    padding: "10px",
+                },
+                button: {
+                    "background-color": "red",
+                    color: "white",
+                    padding: "8px 16px",
+                    border: "none",
+                    "border-radius": "5px",
+                    cursor: "pointer",
+                },
+                eventStyles: {
+                    button: {
+                        mouseover: { "background-color": "green" },
+                        mouseout: { "background-color": "yellow" },
+                    },
+                },
+            }
+        );
+    }
 
     // Save Quote (Add/Edit)
     $("#saveQuoteButton").click(function () {
@@ -69,29 +104,10 @@ $(document).ready(function () {
                 data: {
                     quote: quote,
                     author: author,
+                    _token: csrfToken,
                 },
                 success: function (data) {
-                    Dialog.showPlainDialog(
-                        `<p class='text-center fs-3'>
-                            <strong>Quote Successfully Change<strong>
-                        </p>`,
-                        {
-                            backdrop: {
-                                "background-color": "#F3E6D5",
-                                "backdrop-filter": "blur(10px)",
-                            },
-                            dialog: {
-                                "background-color": "#fff",
-                            },
-                            button: { color: "red" },
-                            eventStyles: {
-                                button: {
-                                    mouseover: { "background-color": "green" },
-                                    mouseout: { "background-color": "yellow" },
-                                },
-                            },
-                        }
-                    );
+                    DialogModal("Save Changes Successfully");
                     $("#resultsContainer").html(data);
                 },
                 error: function (xhr, status, error) {
@@ -117,27 +133,7 @@ $(document).ready(function () {
                     _token: csrfToken,
                 },
                 success: function (data) {
-                    Dialog.showPlainDialog(
-                        `<p class='text-center fs-3'>
-                            <strong>Quote Successfully Added<strong>
-                        </p>`,
-                        {
-                            backdrop: {
-                                "background-color": "#F3E6D5",
-                                "backdrop-filter": "blur(10px)",
-                            },
-                            dialog: {
-                                "background-color": "#fff",
-                            },
-                            button: { color: "red" },
-                            eventStyles: {
-                                button: {
-                                    mouseover: { "background-color": "green" },
-                                    mouseout: { "background-color": "yellow" },
-                                },
-                            },
-                        }
-                    );
+                    DialogModal("Quote Added Successfully");
                     $("#resultsContainer").html(data);
                 },
                 error: function (xhr, status, error) {
@@ -159,20 +155,31 @@ $(document).ready(function () {
     });
 
     // Open Delete Modal
-    $(".deleteQuoteButton").click(function () {
+    $(document).on("click", ".deleteQuoteButton", function () {
         const quoteId = $(this).data("id");
         $("#confirmDeleteButton").data("id", quoteId);
         $("#deleteModal").modal("show");
     });
 
     // Confirm Delete
-    $("#confirmDeleteButton").click(function () {
+    $(document).on("click", "#confirmDeleteButton", function () {
         const quoteId = $(this).data("id");
         $.ajax({
-            url: `/quotes/${quoteId}`, // Update this URL based on your routing
+            url: `/deleteQuote/${quoteId}`, // Update this URL based on your routing
             method: "DELETE",
-            success: function () {
-                location.reload(); // Reload the page
+            data: {
+                _token: csrfToken,
+            },
+            success: function (data) {
+                DialogModal("Quote Deleted Successfully");
+                $("#resultsContainer").html(data);
+            },
+            error: function (xhr) {
+                if (xhr.status === 404) {
+                    DialogModal("Error: Quote not found.");
+                } else {
+                    DialogModal("An unexpected error occurred.");
+                }
             },
         });
 

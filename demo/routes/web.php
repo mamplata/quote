@@ -11,3 +11,4 @@ Route::get('/', [QuoteController::class, 'index']);
 Route::post('/search', [QuoteController::class, 'search']);
 Route::post('/addQuote', [QuoteController::class, 'store']);
 Route::put('/updateQuote/{id}', [QuoteController::class, 'update']);
+Route::delete('/deleteQuote/{id}', [QuoteController::class, 'destroy']);

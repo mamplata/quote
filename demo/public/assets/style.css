@@ -42,15 +42,19 @@ body {
 }
 
 #resultsContainer {
-    max-height: 400px;
-    /* Increased height */
-    overflow-y: auto;
-    /* Enable vertical scrolling */
-    padding: 20px;
-    /* Add padding for better spacing */
-    text-align: left;
-    /* Align text to the left */
+    max-height: 400px; /* Restrict container height for overflow control */
+    overflow-y: auto;  /* Enable vertical scrolling for content */
+    padding: 20px;     /* Spacing around content for a cleaner layout */
+    text-align: left;  /* Left-align text for readability */
+
+    border-radius: 8px;        /* Rounded corners */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+
+    /* Responsive padding adjustment */
+    padding: 15px; /* Reduced padding for smaller screens */
+    font-size: 0.95rem; /* Slightly smaller font size */
 }
+
 
 .no-results {
     font-size: 1.2rem;

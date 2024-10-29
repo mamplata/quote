@@ -11,7 +11,7 @@ class UpdateQuoteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class UpdateQuoteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'author' => 'required|string|max:255',
+            'quote' => 'required|string|max:255',
         ];
     }
 }

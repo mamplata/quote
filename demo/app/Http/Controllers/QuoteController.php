@@ -50,4 +50,19 @@ class QuoteController extends Controller
 
         return view('search_results', compact('quotes'));
     }
+
+    public function destroy($id)
+    {
+        $item = Quote::find($id);
+
+        if (!$item) {
+            return response()->json(['message' => 'Item not found'], 404);
+        }
+
+        $item->delete();
+
+        $quotes = Quote::orderBy('created_at', 'desc')->get();
+
+        return view('search_results', compact('quotes'));
+    }
 }
